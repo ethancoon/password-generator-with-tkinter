@@ -52,9 +52,9 @@ def passwordSubmit():
         passwordLower = any(c.islower() for c in generatedPassword)
         passwordUpper = any(c.isupper() for c in generatedPassword)
         passwordDigit = (sum(c.isdigit() for c in generatedPassword) >= 3)
-        passwordSymbol = any(c.isalnum() for c in generatedPassword)
-        if any((numberCheckBoolean, uppercaseCheckBoolean, not symbolsCheckBoolean)):
-            if all((numberCheckBoolean, uppercaseCheckBoolean, not symbolsCheckBoolean)):
+        passwordSymbol = (any(c.isalnum() for c in generatedPassword) <= 15)
+        if any((numberCheckBoolean, uppercaseCheckBoolean, symbolsCheckBoolean)):
+            if all((numberCheckBoolean, uppercaseCheckBoolean, symbolsCheckBoolean)):
                 if all((passwordLower, passwordUpper, passwordDigit, passwordSymbol)):
                     password.set(generatedPassword)
                     break
@@ -62,11 +62,11 @@ def passwordSubmit():
                 if all((passwordLower, passwordDigit, passwordUpper)):
                     password.set(generatedPassword)
                     break
-            elif all((uppercaseCheckBoolean, not symbolsCheckBoolean)):
+            elif all((uppercaseCheckBoolean, symbolsCheckBoolean)):
                 if all((passwordLower, passwordUpper, passwordSymbol)):
                     password.set(generatedPassword)
                     break
-            elif all((numberCheckBoolean, not symbolsCheckBoolean)):
+            elif all((numberCheckBoolean, symbolsCheckBoolean)):
                 if all((passwordLower, passwordDigit, passwordSymbol)):
                     password.set(generatedPassword)
                     break
@@ -103,4 +103,3 @@ symbolsCheckbox = Checkbutton(root, bg="#637180", text="Symbols?", onvalue=1, of
 submitButton = Button(root, bg="#637180", text="      Submit      ", command=passwordSubmit).grid(row=8, column=0, padx=50, pady=40)
 
 root.mainloop()
-
